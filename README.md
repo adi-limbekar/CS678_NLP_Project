@@ -1,17 +1,16 @@
 CS678_NLP_Project
 
-Prepared datasets
+Prepared datasets: Prepared dataset can be found in ./data/original_dataset folder
 
-We prepared two datasets. The first is a preprocessed dataset provided by the competition organizers. The second, Reddit Depression Corpora, was used to train the DepRoBERTa language model.
+Preprocessed competition dataset: Dataset was prepared by removing duplicates and transfer some examples from the dev set to the train set. Files are available in the ./data/preprocessed_dataset folder.
 
-Preprocessed competition dataset
+To run the code please follow the code sequence in the CS678_nlp.ipynb file.
 
-Dataset was prepared by removing duplicates and transfer some examples from the dev set to the train set. Files are available in the ./data/preprocessed_dataset folder.
+You can view the entire workflow in the pdf file of the same CS678_nlp.ipynb file and the project report in ./Documents folder.
 
-Reddit Depression Corpora
+For the final results of eval.py please refer the .txt files in ./models folder.
 
-We built a corpus based on the Reddit Mental Health Dataset (Low et al., 2020) and a dataset of 20,000 posts from r/depression and r/SuicideWatch subreddits. We filtered the data appropriately, leaving mainly those related to depression (31,2%), anxiety (20,5%) and suicide (18.1%), which resulted in a corpora consisting of 396,968 posts.
-
+As there are many output generated files that are more than 1.5 GB, cannot upload it here, so to view all the files, folders and outputs of the models please use this https://drive.google.com/drive/folders/1xD1ZIqHdatgu8BZr1nav5pFJeOkI8nOi?usp=sharing
 
 Name: Aditya Milind Limbekar, E-mail: alimbekar@gmu.edu, GNUM: G01384408
 Name: Stephen Dias, E-mail: sdias3@gmu.edu, GNUM: G01387625       
