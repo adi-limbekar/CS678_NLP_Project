@@ -69,15 +69,17 @@ def print_results():
 
 if __name__ == '__main__':
     results = []
+    with open('/content/drive/MyDrive/depression-detection-lt-edi-2022/models/final_results.txt', 'a') as f:  
+      for model_info in get_models('basic') + get_models('DepRoBERTa'):
+          agg = ResultAggregator(model_info.model_name)
+          for version in range(global_config.runs):
+              model_info.model_version = f'v{version + 1}'
+              model_args, dropout = get_fine_tuning_args(model_info)
+              model_args.eval_batch_size = 50
 
-    for model_info in get_models('basic') + get_models('DepRoBERTa'):
-        agg = ResultAggregator(model_info.model_name)
-        for version in range(global_config.runs):
-            model_info.model_version = f'v{version + 1}'
-            model_args, dropout = get_fine_tuning_args(model_info)
-            model_args.eval_batch_size = 50
-
-            agg.add(model_info.model_version, eval_model(model_info, model_args))
-        results.append(agg.get_result())
-
-    print_results()
+              agg.add(model_info.model_version, eval_model(model_info, model_args))
+          result = agg.get_result()
+          print(result)
+          f.write('model,acc, precision, recall, f1\n')
+          f.write(f'{result}\n')
+    #print_results()

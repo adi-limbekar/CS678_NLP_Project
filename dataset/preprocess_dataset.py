@@ -1,25 +1,26 @@
+from numpy.random import shuffle
 import pandas as pd
 from collections import Counter
-from dataset.utils import get_data, labels
-
+from utils_1 import get_data, labels
+import numpy as np
 
 dev_probability = {
-    'severe': 0.09,
-    'moderate': 0.51,
+    'severe': 0.1,
+    'moderate': 0.5,
     'not depression': 0.4
 }
 
 
 def preprocess():
-    train = get_data('train')
-    statistics('train', train)
+    train = get_data('train_multilingual_robustness_1')
+    statistics('train_multilingual_robustness_1', train)
 
     dev = get_data('dev')
     statistics('dev', dev)
 
     buckets = {l: [] for l in labels}
     all_texts = set()
-    for data in [train, dev]:
+    for data in [train]:
         for idx, row in data.iterrows():
             pid = row['pid']
             text = row['text']
@@ -30,17 +31,22 @@ def preprocess():
 
     train_dataset, dev_dataset = [], []
     for label, prob in dev_probability.items():
-        v = int(prob * 1000)
+        v = int(prob * 100)
         train_dataset += buckets[label][:-v]
         dev_dataset += buckets[label][-v:]
 
     train = pd.DataFrame(train_dataset, columns=['pid', 'text', 'labels'])
+    train = train.sample(frac=1, replace=False).head(4000)
     print_stats('Train after preprocessing', train)
-    train.to_csv('../data/preprocessed_dataset/train.csv', index=False)
+    train.to_csv('../data/preprocessed_dataset/train_multilingual_robust.csv', index=False)
 
-    dev = pd.DataFrame(dev_dataset, columns=['pid', 'text', 'labels'])
-    print_stats('Dev after preprocessing', dev)
-    dev.to_csv('../data/preprocessed_dataset/dev.csv', index=False)
+    # dev = pd.DataFrame(dev_dataset, columns=['pid', 'text', 'labels'])
+    # num_rows = len(dev)
+    # random_order = np.random.permutation(num_rows)
+    # shuffled_df = dev.iloc[random_order]
+    # dev = shuffled_df.sample(frac=1, replace=False).head(1000)
+    # print_stats('Dev after preprocessing', dev)
+    # dev.to_csv('../data/preprocessed_dataset/dev_mult.csv', index=False)
 
 
 def statistics(data_split, dataset):

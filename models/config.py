@@ -4,7 +4,7 @@ from simpletransformers.config.model_args import LanguageModelingArgs, Classific
 class GlobalConfig:
     def __init__(self):
         self.dir_with_models: str = 'trained_models'
-        self.runs: int = 5
+        self.runs: int = 2
 
 
 class Dropout:
@@ -16,7 +16,7 @@ class Dropout:
 
 def get_fine_tuning_args(model_info):
     model_args = ClassificationArgs()
-    model_args.learning_rate = 2e-4
+    model_args.learning_rate = 5e-6
     model_args.train_batch_size = 16
     model_args.num_train_epochs = 2
     model_args.evaluate_during_training_steps = 100
@@ -32,8 +32,8 @@ def get_fine_tuning_args(model_info):
 
 def get_lm_pretraining_args():
     lm_args = LanguageModelingArgs()
-    lm_args.learning_rate = 2e-5
-    lm_args.train_batch_size = 16
+    lm_args.learning_rate = 4e-6
+    lm_args.train_batch_size = 50
     lm_args.eval_batch_size = 50
     lm_args.num_train_epochs = 2
     lm_args.dataset_type = "simple"

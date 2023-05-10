@@ -1,0 +1,4 @@
+model,acc, precision, recall, f1
+roberta-large & 0.701 & 0.656 & 0.519 & 0.523 \\
+model,acc, precision, recall, f1
+bert-base-multilingual-cased & 0.663 & 0.653 & 0.605 & 0.594 \\
